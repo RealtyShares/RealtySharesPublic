@@ -247,34 +247,34 @@ let spawn_server routes =
     
 // Unit tests.
 [<TestFixture>]
-module UnitTest =
+type UnitTest() =
     // Test setup.
     [<TestFixtureSetUp>]
-    let ``Bring up the server``() = spawn_server app
+    member this.``Bring up the server``() = ignore <| spawn_server app
 
     // Demo endpoints test.
     [<Test>]
-    let ``DEMO: GET /demo_get``() =
+    member this.``DEMO: GET /demo_get``() =
         "OK"
         |> should equal
         <| Http.RequestString(sprintf "http://localhost:%d/demo_get" port)
     [<Test>]
     [<ExpectedException>]
-    let ``DEMO: POST /demo_get not allowed``() =
+    member this.``DEMO: POST /demo_get not allowed``() =
         should throw typeof<System.Net.WebException>
         <| Http.RequestString((sprintf "http://localhost:%d/demo_get" port), httpMethod="POST")
     [<Test>]
-    let ``DEMO: GET /demo_add/2/2``() =
+    member this.``DEMO: GET /demo_add/2/2``() =
         "2+2=4"
         |> should equal
         <| Http.RequestString(sprintf "http://localhost:%d/demo_add/2/2" port)
     [<Test>]
-    let ``DEMO: GET /demo_whatever?demo_url_parameter=foo"``() =
+    member this.``DEMO: GET /demo_whatever?demo_url_parameter=foo"``() =
         "demo_url_parameter=foo"
         |> should equal
         <| Http.RequestString(sprintf "http://localhost:%d/demo_whatever?demo_url_parameter=foo" port)
     [<Test>]
-    let ``DEMO: POST /demo_post``() =
+    member this.``DEMO: POST /demo_post``() =
         "LENGTH=3, BODY='foo'"
         |> should equal
         <| Http.RequestString((sprintf "http://localhost:%d/demo_post" port),
