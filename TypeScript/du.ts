@@ -13,7 +13,7 @@ interface LikeID { lid: number; }
 class DBContents {
   user_name: object = {};
   post_text: object = {};
-};
+}
 
 class User {
   public constructor(public key: UserID, public name: string) {}
@@ -41,7 +41,7 @@ class Like {
 
 type Entry = User | Post | Like;
 
-let data = [
+let data: Entry[] = [
   new User({ uid: 1001 }, "Dima"),
   new Post({ pid: 2001 }, "Strong typing FTW!"),
   new Like({ lid: 3001 }, { uid: 1001 }, { pid: 2001 }),
