@@ -1,0 +1,35 @@
+{
+  "name": "public",
+  "description": "Messing around with TypeScript.",
+  "author": "Dima Korolev <dmitry.korolev@gmail.com>",
+  "version": "1.0.0",
+  "private": true,
+  "main": "out/scratchpad.js",
+  "scripts": {
+    "build": "rm -rf node_modules/@shared && rm -rf node_modules/@types && npm i",
+    "lint": "tslint --project tsconfig.json --type-check -c tslint.json --force 'src/*'",
+    "start": "node out/scratchpad.js",
+    "postinstall": "tsc"
+  },
+  "engines": {
+    "node": "^7.7.1",
+    "npm": "^3.9.0"
+  },
+  "dependencies": {
+    "@types/node": "^7.0.18"
+  },
+  "devDependencies": {
+    "nyc": "^10.2.0",
+    "ts-node": "^3.0.2",
+    "tslint": "^5.1.0",
+    "typescript": "^2.2.2"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "reporter": [
+      "lcov"
+    ]
+  }
+}
