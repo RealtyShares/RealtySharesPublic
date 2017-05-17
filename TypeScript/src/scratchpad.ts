@@ -11,47 +11,48 @@ enum PostID { INVALID_PID = 0 }
 enum LikeID { INVALID_LID = 0 }
 
 class DBContents {
-  user_name: Map<UserID, string> = new Map<UserID, string>();
-  post_text: Map<PostID, string> = new Map<PostID, string>();
+  public userName: Map<UserID, string> = new Map<UserID, string>();
+  public postText: Map<PostID, string> = new Map<PostID, string>();
 }
 
 class User {
   public constructor(public key: UserID, public name: string) {}
-  updateDB(db: DBContents) {
-    db.user_name[this.key] = this.name;
+  public updateDB(db: DBContents): void {
+    db.userName[this.key] = this.name;
   }
-  dumpGivenDBContents(db: DBContents) {}
+  public dumpGivenDBContents(_: DBContents): void {}
 }
 
 class Post {
   public constructor(public key: PostID, public text: string) {}
-  updateDB(db: DBContents) {
-    db.post_text[this.key] = this.text;
+  public updateDB(db: DBContents): void {
+    db.postText[this.key] = this.text;
   }
-  dumpGivenDBContents(db: DBContents) {}
+  public dumpGivenDBContents(_: DBContents): void {}
 }
 
 class Like {
   public constructor(public key: LikeID, public user: UserID, public post : PostID) {}
-  updateDB(db: DBContents) {}
-  dumpGivenDBContents(db: DBContents) {
-    console.log(`User '${db.user_name[this.user]}' liked post '${db.post_text[this.post]}'`);
+  public updateDB(_: DBContents): void {}
+  public dumpGivenDBContents(db: DBContents): void {
+    console.log(`User '${db.userName[this.user]}' liked post '${db.postText[this.post]}'`);
   }
 }
 
 type Entry = User | Post | Like;
 
 let data: Entry[] = [
-  new User(<UserID>1001, "Dima"),
-  new Post(<PostID>2001, "Strong typing FTW!"),
-  new Like(<LikeID>3001, <UserID>1001, <PostID>2001),
+  new User(<UserID> 1001, "Dima"),
+  new Post(<PostID> 2001, "Strong typing FTW!"),
+  new Like(<LikeID> 3001, <UserID> 1001, <PostID> 2001),
 ];
 
 data.forEach((e: Entry) => {
   console.log(e);
 });
 
-let db = new DBContents();
+const db: DBContents = new DBContents();
+
 data.forEach((e: Entry) => {
   e.updateDB(db);
 });
